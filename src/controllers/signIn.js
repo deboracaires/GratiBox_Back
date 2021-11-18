@@ -51,14 +51,14 @@ async function signIn(req, res) {
         INSERT INTO sessions ("user_id", token) VALUES ($1, $2)
     `, [user.rows[0].id, token]);
 
-      return res.send({ name, token }).status(201);
+      return res.send({ name, token });
     }
 
     await connection.query(`
         UPDATE sessions SET "token"= $2 WHERE id=$1
     `, [session.rows[0].id, token]);
 
-    return res.send({ name, token }).status(201);
+    return res.send({ name, token });
   } catch (err) {
     res.sendStatus(500);
   }
