@@ -17,7 +17,7 @@ export async function fakeUser() {
 export async function invalidUser() {
   const user = {
     name: 'a',
-    email: faker.internet.email(),
+    email: 'a',
     password: '123456',
     hashedPassword: bcrypt.hashSync('123456', 10),
   };
