@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 /* eslint-disable consistent-return */
 /* eslint-disable import/prefer-default-export */
 import bcrypt from 'bcrypt';
@@ -50,15 +51,22 @@ async function signIn(req, res) {
       await connection.query(`
         INSERT INTO sessions ("user_id", token) VALUES ($1, $2)
     `, [user.rows[0].id, token]);
-
-      return res.send({ name, token });
     }
 
     await connection.query(`
-        UPDATE sessions SET "token"= $2 WHERE id=$1
-    `, [session.rows[0].id, token]);
+        INSERT INTO sessions ("user_id", token) VALUES ($1, $2)
+    `, [user.rows[0].id, token]);
 
-    return res.send({ name, token });
+    const verifySignature = await connection.query(`
+      SELECT * FROM signatures WHERE "user_id" = $1
+    `, [user.rows[0].id]);
+
+    let hasSignature = false;
+    if (verifySignature.rowCount !== 0) {
+      hasSignature = true;
+    }
+
+    return res.send({ name, token, hasSignature });
   } catch (err) {
     res.sendStatus(500);
   }
