@@ -51,11 +51,11 @@ async function signIn(req, res) {
       await connection.query(`
         INSERT INTO sessions ("user_id", token) VALUES ($1, $2)
     `, [user.rows[0].id, token]);
-    }
-
-    await connection.query(`
-        INSERT INTO sessions ("user_id", token) VALUES ($1, $2)
+    } else {
+      await connection.query(`
+        UPDATE sessions SET token = $2 WHERE "user_id" = $1
     `, [user.rows[0].id, token]);
+    }
 
     const verifySignature = await connection.query(`
       SELECT * FROM signatures WHERE "user_id" = $1
