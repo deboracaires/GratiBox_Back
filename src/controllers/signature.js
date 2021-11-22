@@ -9,7 +9,7 @@ import registerDeliveries from './deliveries.js';
 import { signatureSchema } from '../schemmas/signatureSchema.js';
 
 async function postSignature(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://grati-box-front-six.vercel.app');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   // eslint-disable-next-line dot-notation
   const auth = req.headers['authorization'];
   const token = auth?.replace('Bearer ', '');
