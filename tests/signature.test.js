@@ -45,6 +45,7 @@ describe('POST /signature', () => {
   });
   it('returns with status 409 when the user already have a signature registered', async () => {
     const headers = `Bearer ${token}`;
+    await supertest(app).post('/signature').send(validBody).set('Authorization', headers);
     const response = await supertest(app).post('/signature').send(validBody).set('Authorization', headers);
     expect(response.status).toEqual(409);
   });

@@ -81,7 +81,7 @@ async function postAdress(req, res) {
     await connection.query(`
       INSERT INTO address ("user_id", "complement", "cep", "city_name", "state_name") 
       VALUES ($1, $2, $3, $4, $5)
-    `, [userId, complement, cep, state_name, cityName]);
+    `, [userId, complement, cep, cityName, state_name]);
 
     res.sendStatus(201);
   } catch (err) {

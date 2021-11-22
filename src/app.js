@@ -15,7 +15,7 @@ app.use(express.json());
 app.post('/sign-up', signUp);
 app.post('/sign-in', signIn);
 app.post('/signature', authorization, postSignature);
-app.post('/adress', authorization, postAdress);
+app.post('/address', authorization, postAdress);
 
 app.get('/signature', authorization, getSignature);
 app.get('/signature-data', authorization, getSignatureData);
