@@ -27,7 +27,7 @@ function removeAcents(str) {
 }
 
 async function postAdress(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://grati-box-front-six.vercel.app/address');
+  res.setHeader('Access-Control-Allow-Origin', 'https://grati-box-front-six.vercel.app');
   // eslint-disable-next-line dot-notation
   const auth = req.headers['authorization'];
   const token = auth?.replace('Bearer ', '');
